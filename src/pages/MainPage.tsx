@@ -25,7 +25,7 @@ export default function MainPage() {
 
     return(
         <View className="flex-1 p-5 gap-3">
-            <View className="p-2 text-xl tracking-wider select-none bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 text-white text-center">
+            <View className="p-2 text-xl tracking-wider select-none bg-indigo-600  transition-colors duration-300 text-white text-center">
                 <Text className="text-xl tracking-wider text-white text-center">
                     {`< Pinca, Seth A. >`}
                 </Text>
@@ -53,7 +53,7 @@ export default function MainPage() {
                     data={items}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <View className="p-4 border-b select-none border-gray-200 bg-green-500 hover:bg-green-400 active:scale-95 transition-all duration-300 mb-2 rounded">
+                        <View className="p-4 border-b select-none border-gray-200 bg-green-500active:scale-95 transition-all duration-300 mb-2 rounded">
                             <Text className="text-xl text-center text-white">{item}</Text>
                         </View>
                     )}
