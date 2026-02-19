@@ -2,7 +2,6 @@ import { View, Text, TextInput, Pressable, FlatList, Alert } from 'react-native'
 import { useState } from 'react';
 
 export default function MainPage() {
-
     const [text, setText] = useState<string>('');
     const [items, setItems] = useState<string[]>([]);
 
@@ -10,7 +9,7 @@ export default function MainPage() {
         const textToAdd: string = text.trim();
 
         if(!textToAdd) {
-            Alert.alert("Type a name first!")
+            Alert.alert("Type a name first!");
             return;
         };
 
@@ -23,42 +22,53 @@ export default function MainPage() {
         }
     };
 
+    const handleDelete = (name: string) => {
+    alert(`Deleting: ${name}`);
+
+    const filteredItems = items.filter((item) => item !== name);
+    setItems(filteredItems);
+    };
+
     return(
-        <View className="flex-1 p-5 gap-3">
-            <View className="p-2 text-xl tracking-wider select-none bg-indigo-600  transition-colors duration-300 text-white text-center">
-                <Text className="text-xl tracking-wider text-white text-center">
+        <View className="flex-1 p-5 gap-3 bg-gray-50">
+            <View className="p-2 bg-indigo-600">
+                <Text className="text-xl tracking-wider text-white text-center font-bold">
                     {`< Pinca, Seth A. >`}
                 </Text>
             </View>
 
-            <View className="flex flex-col gap-4 flex-1">
+            <View className="flex-col gap-4 flex-1">
                 <TextInput 
-                    className="border-2 border-black bg-white focus:border-indigo-600 focus:bg-indigo-50 text-xl p-3 transition-all duration-300" 
+                    className="border-2 border-black bg-white text-xl p-3" 
                     placeholder="Enter Name" 
-                    underlineColorAndroid="transparent"
-
+                    placeholderTextColor="#999"
                     value={text}
                     onChangeText={(val) => setText(val)}
                 />   
 
-                <Pressable onPress={handleAdd} 
-                        className="p-4 bg-blue-500 select-none active:bg-blue-700 active:scale-95 transition-all duration-100 rounded-lg">
-                    <Text className='text-white text-xl text-center tracking-widest'>
+                <Pressable 
+                    onPress={handleAdd} 
+                    className="p-4 bg-blue-500 active:bg-blue-700 rounded-lg"
+                >
+                    <Text className='text-white text-xl text-center tracking-widest font-bold'>
                         + ADD
                     </Text>
                 </Pressable>
 
                 <FlatList
-                    className="border-2 border-black flex-1 p-2"
+                    className="border-2 border-black flex-1 p-2 bg-white"
                     data={items}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <View className="p-4 border-b select-none border-gray-200 bg-green-500active:scale-95 transition-all duration-300 mb-2 rounded">
-                            <Text className="text-xl text-center text-white">{item}</Text>
+                        <View className="flex-row justify-between items-center p-2 border-2 border-black bg-green-500 mb-2 rounded">
+                            <Text className="text-xl text-center text-white font-medium">{item}</Text>
+                            <Pressable 
+                            onPress = {() => handleDelete(item)}
+                            className="bg-red-600 p-4 rounded-lg "><Text className="text-white">DELETE</Text></Pressable>
                         </View>
                     )}
                 />
             </View>
         </View> 
-    )
+    );
 }
